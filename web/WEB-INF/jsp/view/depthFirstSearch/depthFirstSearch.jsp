@@ -366,43 +366,43 @@ function canvasApp() {
 
   	function randomize() {
 
-    	/* adding random edges, only Nedges (sparse)
-       	allow connection only in cases below:
-       mNx1 = mNx2, |mNy1 - mNy2| == 1
-       mNy1 = mNy2, |mNx1 - mNx2| == 1
-       |mNx1 - mNx2| == 1 and |mNy1 - mNy2| == 1   
-    	*/
+    	    /* adding random edges, only Nedges (sparse)
+       	     allow connection only in cases below:
+             mNx1 = mNx2, |mNy1 - mNy2| == 1
+            mNy1 = mNy2, |mNx1 - mNx2| == 1
+            |mNx1 - mNx2| == 1 and |mNy1 - mNy2| == 1   
+    	    */
   
-    	var edges = 0;
-    	var count = 0;
+    	    var edges = 0;
+    	    var count = 0;
 
-    	var check = new Array(35);
-    	for (var i = 0; i < 35; i++) {
-      		check[i] = new Array(35);
-    	}
+    	    var check = new Array(35);
+    	    for (var i = 0; i < 35; i++) {
+      	        check[i] = new Array(35);
+    	    }
 
-    	for (var i = 0; i < 35; i++) {
+    	    for (var i = 0; i < 35; i++) {
       		for (var j = 0; j < 35; j++) {
         		check[i][j] = 0;
       		}
-    	}
+    	    }
 
-    	var index1, index2;
+    	    var index1, index2;
 
-    	// reset all vertices
-    	for (var i = 0; i < graph.mV.length; i++) {
+    	    // reset all vertices
+    	    for (var i = 0; i < graph.mV.length; i++) {
       		graph.mV[i].mColor = "black";
       		graph.mV[i].mParent = null;
       		graph.mV[i].mD = null;
       		graph.mV[i].mF = null;
-    	}
+    	    }
 
-    	// remove all existing edges
-    	for (var i = 0; i < graph.mAdj.length; i++) {
+    	    // remove all existing edges
+    	    for (var i = 0; i < graph.mAdj.length; i++) {
       		graph.mAdj[i] = [];
-    	}
+    	    }
 
-    	while (edges < Nedges) {
+    	    while (edges < Nedges) {
       		// select 2 random indexes
       		index1 = Math.floor(Math.random() * 35);// range
       		index2 = index1;
@@ -420,52 +420,15 @@ function canvasApp() {
           			edges++;      
         		}        
       		}
-    	}// while
+    	    }// while
     	 	
-    	var disp;
+    	    var disp;
     
-
- graph.mAdj[0] = [8];
- graph.mAdj[1] = [7];
- graph.mAdj[2] = [];
- graph.mAdj[3] = [10];
- graph.mAdj[4] = [11];
- graph.mAdj[5] = [];
- graph.mAdj[6] = [12];
- graph.mAdj[7] = [1];
- graph.mAdj[8] = [14, 16];
- graph.mAdj[9] = [16, 3];
- graph.mAdj[10] = [9];
- graph.mAdj[11] = [3, 18];
- graph.mAdj[12] = [18];
- graph.mAdj[13] = [5];
- graph.mAdj[14] = [15];
- graph.mAdj[15] = [9];
- graph.mAdj[16] = [];
- graph.mAdj[17] = [];
- graph.mAdj[18] = [11, 25];
- graph.mAdj[19] = [13];
- graph.mAdj[20] = [26];
- graph.mAdj[21] = [14];
- graph.mAdj[22] = [];
- graph.mAdj[23] = [16];
- graph.mAdj[24] = [31,17];
- graph.mAdj[25] = [];
- graph.mAdj[26] = [];
- graph.mAdj[27] = [];
- graph.mAdj[28] = [21];
- graph.mAdj[29] = [];
- graph.mAdj[30] = [22,31];
- graph.mAdj[31] = [25];
- graph.mAdj[32] = [];
- graph.mAdj[33] = [];
- graph.mAdj[34] = [27];
-
- initDraw();
+            initDraw();
  
-		$('#initColl').find(':submit')[0].disabled = false;
+	    $('#initColl').find(':submit')[0].disabled = false;
 	
-		$('#status').text('Ready to search');
+	    $('#status').text('Ready to search');
  	}// randomize
 
   	function animSpeedChanged(e) {
