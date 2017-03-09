@@ -1,0 +1,66 @@
+#intro { 
+  display: block;
+  width: 600px;
+  height: auto;
+  font: 15px verdana, sans-serif;
+  border: 1px solid #999999;
+}
+
+#display {
+  display: block;
+  float: left;
+  width: 700px;
+  height: 600px;
+  
+  border: 1px solid #999999;
+}
+
+#controls {
+  float: left;
+  width: 202px;
+  height: auto;
+  font: 15px verdana, sans-serif;
+  /*border: 1px solid #990000;*/
+}
+
+#randomize {
+  width: 200px;
+  height: auto;
+  font: 12px verdana, sans-serif;
+  border: 1px solid #999999;
+}
+
+#sourceselect {
+  width: 200px;
+  height: auto;
+  font: 12px verdana, sans-serif;
+  border: 1px solid #999999;
+}
+
+#stepwise {
+  width: 200px;
+  height: auto;
+  font: 12px verdana, sans-serif;
+  border: 1px solid #999999;
+}
+
+
+#animspeed {
+  width: 200px;
+  height: auto;
+  font: 12px verdana, sans-serif;
+  border: 1px solid #999999;
+}
+
+#canvas {
+  margin-bottom: 50px;
+}
+
+footer {
+  display: block;
+  height: auto;
+  text-align: center;
+  font: 20px helvetica, sans-serif;
+  font-weight: bold;
+}
+
