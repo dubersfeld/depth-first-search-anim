@@ -9,4 +9,9 @@ The browser sends a single Ajax request to the server that sends back a response
 
 The root context when deployed on Tomcat is depth-first-search
 
+For a step-by-step demonstration of the DFS algorithm please visit this repository:
+
+https://github.com/dubersfeld/depth-first-search-step
+
+
 Dominique Ubersfeld, Cachan, France
