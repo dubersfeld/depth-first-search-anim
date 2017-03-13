@@ -48,7 +48,7 @@ public class DFSController {
 			
 			v1.getAdjacency().add(to);
 			// helper adjacency matrix
-			graph.getEdges()[from][to] = new ClassifiedJSONEdge(edge);
+			//graph.getEdges()[from][to] = new ClassifiedJSONEdge(edge);
 		}
 		
 

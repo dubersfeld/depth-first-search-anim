@@ -12,7 +12,6 @@ public class DFSGraph extends Graph implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Stack<Integer> stack;
-	private ClassifiedJSONEdge[][] edges;
 	
 	private int N;
 	
@@ -25,55 +24,23 @@ public class DFSGraph extends Graph implements Serializable {
 	public DFSGraph(int N) {
 		super();
 		System.out.println("Constructor begin");
-		edges = new ClassifiedJSONEdge[N][N]; 
+		//edges = new ClassifiedJSONEdge[N][N]; 
 		stack = new Stack<>();
 		this.N = N;
-		for (int i1  = 0; i1 < N; i1++) {
-			for (int i2 = 0; i2 < N; i2++) {
-				edges[i1][i2] = null;
-			}
-		}
 	}
 	
 	// deep copy
 	public DFSGraph(DFSGraph source) {
 		this.N = source.N;
 		this.stack = new Stack<>();
-		this.edges = new ClassifiedJSONEdge[source.N][source.N]; 
-			
-		int k = 0;
+		 	
 		for (Vertex vertex : source.getVertices()) {
 			DFSVertex dfsVertex = (DFSVertex)vertex;
 			DFSVertex v = new DFSVertex(dfsVertex);// deep copy
 			this.getVertices().add(v);
-			k++;
 		}
-
-		if (source.edges[0][0] != null) {
-			this.edges[0][0] 
-					= new ClassifiedJSONEdge(source.edges[0][0]);
-		}
-		
-		for (int i1 = 0; i1 < source.N; i1++) {
-			for (int i2 = 0; i2 < source.N; i2++) {	
-				if (source.edges[i1][i2] != null) {
-				
-					this.edges[i1][i2] 
-							= new ClassifiedJSONEdge(source.edges[i1][i2]);
-				}
-			}// for
-		}// for
-		
 	}
 	
-	
-	public ClassifiedJSONEdge[][] getEdges() {
-		return edges;
-	}
-
-	public void setEdges(ClassifiedJSONEdge[][] edges) {
-		this.edges = edges;
-	}
 
 	public Stack<Integer> getStack() {
 		return stack;
@@ -90,30 +57,6 @@ public class DFSGraph extends Graph implements Serializable {
 	public void setTime(int time) {
 		this.time = time;
 	}
-
-	/*
-	public DFSGraph clone() {// deep copy
-		
-		DFSGraph graph = new DFSGraph(this.vertices.size());
-		
-		for (Vertex vertex : this.getVertices()) {
-			DFSVertex dfsVertex = (DFSVertex)vertex;
-			DFSVertex v = new DFSVertex(dfsVertex);
-			graph.getVertices().add(v);
-		}
-		
-		for (int i1 = 0; i1 < this.getVertices().size(); i1++) {
-			for (int i2 = 0; i2 < this.getVertices().size(); i2++) {
-				if (this.edges[i1][i2] != null) {
-					graph.edges[i1][i2] = new ClassifiedJSONEdge(
-															this.edges[i1][i2]);
-				}
-			}
-		}
-		
-		return graph;
-	}
-	*/
 	
 	// main search method
 	public void search(List<StepResult> snapshots) {
@@ -152,10 +95,6 @@ public class DFSGraph extends Graph implements Serializable {
 			time++;
 			u.setD(time);
 			System.out.println("has parent " + (u.getParent() != null));
-			if (u.getParent() != null) {
-				edges[u.getParent()][index].setType(ClassifiedJSONEdge.Type.TREE);
-				
-			}
 		}
 			
 		List<Integer> conn = u.getAdjacency();// present vertex successors 
@@ -192,7 +131,6 @@ public class DFSGraph extends Graph implements Serializable {
 	    }
 		
 	    // prepare Ajax response
-	    // need to clone the array edges too
 	    
 	    snapshot = new DFSGraph(this);
 	    	    
@@ -202,17 +140,6 @@ public class DFSGraph extends Graph implements Serializable {
 	        
 	}// searchStep
 			
-	
-	public void displayEdges() {
-		for (int i1 = 0; i1 < this.N; i1++) {
-			for (int i2 = 0; i2 < this.N; i2++) {
-				if (edges[i1][i2] != null) {
-					System.out.println(edges[i1][i2]);
-				}
-			}
-		}
-	}
-	
 	
 	// helper methods
 		
@@ -247,23 +174,6 @@ public class DFSGraph extends Graph implements Serializable {
 			int to = list.get(nind);
 			v = (DFSVertex)this.vertices.get(to);
 		
-			if (edges[from][to].getType() == null) {
-			
-				if (v.getColor().equals(DFSVertex.Color.GREEN)) {
-				
-					edges[from][to]
-							.setType(ClassifiedJSONEdge.Type.BACKWARD);
-				} else if (v.getColor().equals(DFSVertex.Color.BLUE)){
-					if (((DFSVertex)this.vertices.get(from)).getD() < ((DFSVertex)this.vertices.get(nind)).getD()) {
-						edges[from][to]
-								.setType(ClassifiedJSONEdge.Type.FORWARD);
-					} else {
-						edges[from][to]
-							.setType(ClassifiedJSONEdge.Type.CROSS);
-					}
-				}
-			}
-			
 			if (v.getColor().equals(DFSVertex.Color.BLACK)) {
 				break;
 			}
