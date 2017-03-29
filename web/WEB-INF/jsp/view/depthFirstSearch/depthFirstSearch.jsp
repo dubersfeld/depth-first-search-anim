@@ -118,7 +118,7 @@ function canvasApp() {
 
   	var N = 35;// number of vertices
 
-  	var Nedges = 30;// number of edges
+  	var Nedges = 50;// number of edges
 
   	var graph = new Graph(N);// empty graph
   	var queue = [];// use push and shift for a queue
@@ -509,24 +509,8 @@ function canvasApp() {
    
 	function animStep() {
 	  	if (animIndex < results.length) {
-	  		var stepVertices 
-	 			= results[animIndex]["graph"]["vertices"];
+	  		var stepVertices = results[animIndex]["vertices"];
 	  		
-			//var stepEdges = results[animIndex]["graph"]["edges"];
-			
-			//classifiedEdges = [];
-			
-			/*
-			// update edges
-			for (var i1 = 0; i1 < N; i1++) {
-				for (var i2 = 0; i2 < N; i2++) {
-					if (stepEdges[i1][i2] != null) {					
-						classifiedEdges.push(stepEdges[i1][i2]);
-					}
-				}
-			}
-			*/	
-			
 	  		for (var i = 0; i < stepVertices.length; i++) {
 	     
 	      		graph.mV[i].mColor = stepVertices[i].color;// update graph
@@ -559,6 +543,7 @@ function canvasApp() {
 		console.log("searchColl begin");
 		$('#animation').find(':submit')[0].disabled = true;
 		
+		
 		// now start actual search
 		message = {"type": "COLLECTION"};
 		
@@ -577,6 +562,7 @@ function canvasApp() {
 				
 				// enable animation but don't start it yet
 				$('#animation').find(':submit')[0].disabled = false;
+				$('#searchColl').find(':submit')[0].disabled = true;
 				$('#status').text('Ready for animation');
 			},
 			
@@ -664,13 +650,11 @@ function canvasApp() {
 
   	 
   	$("#animation").submit(function(event) { anim(); return false; });
-  
   	$("#initColl").submit(function(event) { initColl(graph); return false; });
-  	
 	$("#searchColl").submit(function(event) { searchColl(graph); return false; });
-	  
   	$("#initelem").submit(function(event) { randomize(graph, Nedges); return false; }); 
   	$("#animspeed").change(function(event) { animSpeedChanged(event); return false; });
+ 
   	$('#initelem').find(':submit')[0].disabled = false;
   	$('#initColl').find(':submit')[0].disabled = false;
   	$('#animation').find(':submit')[0].disabled = true;

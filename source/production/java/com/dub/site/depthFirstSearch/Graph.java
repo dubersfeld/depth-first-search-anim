@@ -1,8 +1,6 @@
 package com.dub.site.depthFirstSearch;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /** Graph has Vertices and Adjacency Lists */
 public class Graph implements Serializable {
@@ -12,27 +10,38 @@ public class Graph implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	protected List<Vertex> vertices;
+	protected Vertex[] vertices;
+	protected int N;
 	
 	public Graph(Graph source) {
-		
-		this.vertices = new ArrayList<>();
-		for (int i = 0; i < source.vertices.size(); i++) {
-			this.vertices.add(new Vertex(source.vertices.get(i)));
+		this.N = source.N;
+		this.vertices = new Vertex[source.N];
+		for (int i = 0; i < source.N; i++) {
+			this.vertices[i] = new Vertex(source.vertices[i]);
 		}
 	}
 	
-	public Graph() {
-		vertices = new ArrayList<>();
+	public Graph(int N) {
+		vertices = new Vertex[N];
 	}
 	
-	public List<Vertex> getVertices() {
-		return vertices;
+	
+	public int getN() {
+		return N;
 	}
-	public void setVertices(List<Vertex> vertices) {
+
+	public void setN(int n) {
+		N = n;
+	}
+
+	public void setVertices(Vertex[] vertices) {
 		this.vertices = vertices;
 	}
 	
+	public Vertex[] getVertices() {
+		return vertices;
+	}
+
 	public void display() {// used for debugging only
 		for (Vertex v : vertices) {
 			System.out.println(v);
@@ -42,11 +51,10 @@ public class Graph implements Serializable {
 	}
 	
 	public void display2() {// used for debugging only
-		for (int i1 = 0; i1 < vertices.size(); i1++) {// for each vertex
-			System.out.print(vertices.get(i1).getName() + " -> ");
-			for (int i2 = 0; i2 < vertices.get(i1).getAdjacency().size(); i2++) {
-				int lind = this.vertices.get(i1).getAdjacency().get(i2);
-				System.out.print(this.vertices.get(lind).getName() + " ");
+		for (int i1 = 0; i1 < N; i1++) {// for each vertex
+			System.out.print(vertices[i1].getName() + " -> ");
+			for (int i2 = 0; i2 < vertices[i1].getAdjacency().size(); i2++) {
+				System.out.print(this.vertices[i1].getName() + " ");
 			}
 			System.out.println();
 		}

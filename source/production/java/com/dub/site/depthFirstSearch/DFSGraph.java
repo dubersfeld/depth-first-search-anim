@@ -13,37 +13,30 @@ public class DFSGraph extends Graph implements Serializable {
 
 	private Stack<Integer> stack;
 	
-	private int N;
-	
 	private Integer index = 0;// main search loop current index
 	private int lastFound = 0;
+	private boolean finished = false;
 	
 	int time = 0;
 	
 	
 	public DFSGraph(int N) {
-		super();
+		super(N);
 		System.out.println("Constructor begin");
-		//edges = new ClassifiedJSONEdge[N][N]; 
 		stack = new Stack<>();
-		this.N = N;
+		finished = false;
 	}
 	
-	// deep copy
-	public DFSGraph(DFSGraph source) {
-		this.N = source.N;
-		this.stack = new Stack<>();
-		 	
-		for (Vertex vertex : source.getVertices()) {
-			DFSVertex dfsVertex = (DFSVertex)vertex;
-			DFSVertex v = new DFSVertex(dfsVertex);// deep copy
-			this.getVertices().add(v);
-		}
-	}
-	
-
 	public Stack<Integer> getStack() {
 		return stack;
+	}
+
+	public boolean isFinished() {
+		return finished;
+	}
+
+	public void setFinished(boolean finished) {
+		this.finished = finished;
 	}
 
 	public void setStack(Stack<Integer> stack) {
@@ -58,36 +51,10 @@ public class DFSGraph extends Graph implements Serializable {
 		this.time = time;
 	}
 	
-	// main search method
-	public void search(List<StepResult> snapshots) {
-		System.out.println("search begin");
-		
-		index = 0;
-		
-		boolean fin = false;
-		while (!fin) {
-		
-			StepResult result = searchStep();
-			snapshots.add(result);
-			if (result.getStatus().equals(StepResult.Status.FINISHED)) {
-				fin = true;
-			}
-			
-		}
-		
-		System.out.println("search completed");
-	}// search
-	
-	
-	public StepResult searchStep() {
+	public void searchStep() {
 		/** one vertex is visited at each step */
-		DFSGraph snapshot = null;
 		
-		StepResult result = new StepResult();// empty container
-		result.setStatus(StepResult.Status.STEP);// default
-
-		
-		DFSVertex u = (DFSVertex)this.vertices.get(index);
+		DFSVertex u = (DFSVertex)this.vertices[index];
 	 
 		// begin with coloring
 		if (u.getColor().equals(DFSVertex.Color.BLACK)) {// vertex has just been discovered
@@ -108,7 +75,7 @@ public class DFSGraph extends Graph implements Serializable {
 	      
 	    if (!finish) {// prepare to descend
 	   
-	        ((DFSVertex)this.vertices.get(first)).setParent(index);// only change here
+	        ((DFSVertex)vertices[first]).setParent(index);// only change here
 	        stack.push(index);// push present vertex before descending 	
 	        index = first;// save u for the next step
 	        
@@ -125,19 +92,11 @@ public class DFSGraph extends Graph implements Serializable {
 	    		index = this.findNotVisited();// can be null
 	    	
 	    		if (index == null) {
-	    			result.setStatus(StepResult.Status.FINISHED);
+	    			finished = true;
 	    		}	
 	    	}     
 	    }
 		
-	    // prepare Ajax response
-	    
-	    snapshot = new DFSGraph(this);
-	    	    
-		result.setGraph(snapshot);
-		
-		return result;
-	        
 	}// searchStep
 			
 	
@@ -147,7 +106,7 @@ public class DFSGraph extends Graph implements Serializable {
 		int nind = 0;
 		DFSVertex v = null;
 		for (nind = this.lastFound + 1; nind < N; nind++) {
-			v = (DFSVertex)this.vertices.get(nind);
+			v = (DFSVertex)vertices[nind];
 			if (v.getColor().equals(DFSVertex.Color.BLACK)) {
 				break;
 			}
@@ -172,7 +131,7 @@ public class DFSGraph extends Graph implements Serializable {
 		
 		for (nind = 0; nind < list.size(); nind++) {
 			int to = list.get(nind);
-			v = (DFSVertex)this.vertices.get(to);
+			v = (DFSVertex)vertices[to];
 		
 			if (v.getColor().equals(DFSVertex.Color.BLACK)) {
 				break;
@@ -185,6 +144,5 @@ public class DFSGraph extends Graph implements Serializable {
 		}
 		
 	}// findNotVisited
-	
 	
 }
