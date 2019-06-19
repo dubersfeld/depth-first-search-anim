@@ -7,7 +7,11 @@ The algorithm itself is implemented in Java. Javascript is used for initializati
 
 The browser sends a single Ajax request to the server that sends back a response that contains a collection of all intermediate search results with a new discovery at each step. Then this collection is used for animation.
 
-The root context when deployed on Tomcat is depth-first-search
+To launch the demo run the command `mvn spring-boot:run` in project directory. When the application has started open a browser and hit URL `localhost:8080/depth-first-search`
+
+Here is a screen shot that can be seen during a demo:
+
+![alt text](images/treeCompleted.png "Tree completed")
 
 For a step-by-step demonstration of the DFS algorithm please visit this repository:
 
