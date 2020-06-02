@@ -13,6 +13,10 @@ Here is a screen shot that can be seen during a demo:
 
 ![alt text](images/treeCompleted.png "Tree completed")
 
+For a video demo follow this link:
+
+https://youtu.be/2C-5OvTwdDU
+
 For a step-by-step demonstration of the DFS algorithm please visit this repository:
 
 https://github.com/dubersfeld/depth-first-search-step
